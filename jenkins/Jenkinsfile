@@ -1,33 +1,25 @@
-pipeline
+pipeline 
 {
+  
+  agent any
+  stages {
 
-agent {
-  label 'DevServer'
-}
-
-tools {
-  maven 'mymaven'
-}
-
-stages{
-
-    stage('build')
-    {
-        steps {
-            sh 'mvn clean package'
-        }
-
-        post {
-        success {
-            archiveArtifacts artifacts: '**/target/*.war'
-                 }
-            }
-
+    stage('build') {
+      steps {
+        sh "building the application"
+      }
     }
 
-   
+    stage('test') {
+      steps {
+        sh "testing the application"
+      }
+    }
 
-    
-}
-
+    stage('deploy') {
+      steps {
+        sh "deploying the application"
+      }
+    }
+  }
 }

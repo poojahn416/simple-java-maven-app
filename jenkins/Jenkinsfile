@@ -1,22 +1,19 @@
-pipeline{
-    agent { label 'devserver' }
+pipeline {
+    agent any
 
-    stages{
-        stage('build'){
-            steps{
-                echo "building the application"
+    stages {
+        stage('build') {
+            steps {
+                echo "building theapplication"
+                sh "mvn clean package"
+                echo "build the application and package into jar file"
             }
-        }
 
-        stage('test'){
-            steps{
-                echo "testing the application"
-            }
-        }
-
-        stage('deploy'){
-            steps{
-                echo "deploying the application"
+            post {
+                success {
+                    archieveArtifacts artifacts:'**/target/*.jar'
+                    sh "artifacts are stored successfully"
+                }
             }
         }
     }
